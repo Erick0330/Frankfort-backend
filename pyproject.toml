@@ -1,0 +1,41 @@
+[project]
+name = "frankfort"
+version = "0.1.0"
+description = "Motor de métricas faciales con auditoría de la medición"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.1",
+    "pydantic>=2.9",
+]
+
+[project.optional-dependencies]
+# El núcleo de métricas NO depende de esto: `frankfort.api` importa el
+# motor y no al revés, así que todo el cálculo se sigue testeando
+# offline y sin FastAPI instalado. Arranque:
+#   uv run uvicorn frankfort.api:app --reload
+api = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+]
+dev = [
+    "pytest>=8.3",
+    "pytest-cov>=6.0",
+    # El TestClient de FastAPI habla por httpx sin levantar un servidor.
+    "httpx>=0.27",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/frankfort"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"

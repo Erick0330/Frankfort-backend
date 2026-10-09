@@ -1,0 +1,15 @@
+# entorno y cachés
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+# editor
+.idea/
+.vscode/
+
+# claves de proveedores LLM: nunca en el repo
+.env
+.env.*
